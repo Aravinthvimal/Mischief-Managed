@@ -1,23 +1,23 @@
 import mongoose from "mongoose";
 
 const workoutPlanSchema = new mongoose.Schema({
-    user : { type : mongoose.Types.ObjectId, ref : "Users" },
+    user : { type : mongoose.Types.ObjectId, rel : "Users" },
     name : { type : String, require : true },
     burn : { type : Number, require : true },
     descrip : { type : Number, require : true },
     weightLoss : { type : Boolean, require : true },
 
     weekPlan : [{
-        monday : { Type : String, require : true },
-        tuesday : { Type : String, require : true },
-        wednesday : { Type : String, require : true },
-        thursday : { Type : String, require : true },
-        friday : { Type : String, require : true },
-        saturday : { Type : String, require : true },
-        sunday : { Type : String, require : true },
+        monday : { type : String, require : true },
+        tuesday : { type : String, require : true },
+        wednesday : { type : String, require : true },
+        thursday : { type : String, require : true },
+        friday : { type : String, require : true },
+        saturday : { type : String, require : true },
+        sunday : { type : String, require : true },
     }],
 
-    workouts : [{ type : mongoose.Types.ObjectId, ref : "Workouts" }],
+    workouts : [{ type : mongoose.Types.ObjectId, rel : "Workouts" }],
 });
 
 export const workoutPlanModel = new mongoose.model("WorkoutPlan", workoutPlanSchema);

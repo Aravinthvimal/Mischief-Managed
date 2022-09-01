@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
     fullname : { type : String, require : true },
     email : { type : String, require : true },
     password : { type : String},
-    mobile : [{ type : Number, require : true }],
-    streaks : [{ type : Number }],
-    foodType : { type : String, require : true },
-    gender : { type : String },
-    age : [{ type : Number, require : true }],
-    allergic : { type : String }
+    mobile : [{ type : Number, require : true }]
 },
 {
     timestamps : true
 });
+
+UserSchema.methods.generateJwtToken = function() {
+    return jwt.sign({user : this._id.toString()}, "MischiefManagedAccess", { expiresIn : '7d'});
+};
 
 UserSchema.statics.findEmailAndPhone = async ({ email, mobile }) => {
 
@@ -54,13 +54,13 @@ UserSchema.pre("save", function(next){
     bcrypt.genSalt(8,(error,salt)=> {
         if(error) return next(error);
 
-            //hashing the password
-            bcrypt.hash(user.password, salt, (error,hash)=> {
-            if(error) return next(error);
+        //hashing the password
+        bcrypt.hash(user.password, salt, (error,hash) => {
+        if(error) return next(error);
         
-            //assigning hashed password
-            user.password = hash;
-            return next();
+        //assigning hashed password
+        user.password = hash;
+        return next();
             
         });
     });

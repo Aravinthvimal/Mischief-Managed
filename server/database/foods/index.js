@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const FoodSchema = new mongoose.Schema({
-    user : { type : mongoose.Types.ObjectId, ref : "Users" },
+    user : { type : mongoose.Types.ObjectId, rel : "Users" },
     name : { type : String, require : true },
     descip : { type : String },
     cousine : { type : String },
