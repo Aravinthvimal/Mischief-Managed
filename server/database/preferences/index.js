@@ -4,9 +4,9 @@ const PreferenceSchema = new mongoose.Schema({
     waterTarget : { type : Number, require : true },
     calorieTarget : { type : Number, require : true },
     calorieBurnTarget : { type : Number, require : true },
-    dietPlan : { type : mongoose.Types.ObjectId, rel : "Diet"},
+    dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet"},
     gym : { type : Boolean, require : true },
-    workoutPlan : { type : mongoose.Types.ObjectId, rel : "WorkoutPlan"},
+    workoutPlan : { type : mongoose.Types.ObjectId, ref : "WorkoutPlan"},
     workoutTime : { type : Number },
     streaks : [{ type : Number }],
     foodType : { type : String, require : true },
@@ -15,4 +15,4 @@ const PreferenceSchema = new mongoose.Schema({
     allergic : { type : String }
 });
 
-export const PreferenceModel = new mongoose.model("preferences", PreferenceSchema);
+export const PreferenceModel = mongoose.model("preferences", PreferenceSchema);

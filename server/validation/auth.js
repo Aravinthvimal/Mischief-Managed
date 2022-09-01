@@ -17,16 +17,7 @@ export const ValidateSignup = (userData) => {
         .min(8),
         
         mobile : joi.number()
-        .required(),
-
-        foodType : joi.string()
-        .required(),
-
-        age : joi.number()
-        .min(12)
-        .required(),
-
-        allergic : joi.string(),
+        .required()
 
     });
 

@@ -9,10 +9,13 @@ import session from "express-session";
 
 // Config
 import googleAuthConfig from "./config/google.config";
-//import routeConfig from "./config/route.config";
+import routeConfig from "./config/route.config";
 
 // API
 import Auth from "./API/Auth";
+import DietPlan from "./API/Diet";
+import Foods from "./API/Foods";
+import Meal from "./API/Meal";
 
 // Database Connections
 import ConnectDB from "./database/connections";
@@ -37,12 +40,15 @@ mischief.use(passport.session());
 
 // Passport config
 googleAuthConfig(passport);
-//routeConfig(passport);
+routeConfig(passport);
 
 // Application Routes 
 // localhost:5000
 
 mischief.use("/auth", Auth);
+mischief.use("/diet", DietPlan);
+mischief.use("/foods", Foods);
+mischief.use("/meal", Meal);
 
 mischief.get("/", (req, res) => res.json({ message : "Setup Success! Yay!!" }));
 

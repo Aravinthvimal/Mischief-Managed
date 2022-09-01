@@ -2,7 +2,7 @@ import passport from "passport";
 import JwtPassport from "passport-jwt";
 
 //Database 
-import {UserModel} from "../database/allModels";
+import { UserModel } from "../database/users/index";
 
 const JwtStrategy = JwtPassport.Strategy;
 const ExtractJwt = JwtPassport.ExtractJwt;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const workoutPlanSchema = new mongoose.Schema({
-    user : { type : mongoose.Types.ObjectId, rel : "Users" },
+    user : { type : mongoose.Types.ObjectId, ref : "Users" },
     name : { type : String, require : true },
     burn : { type : Number, require : true },
     descrip : { type : Number, require : true },
@@ -17,7 +17,7 @@ const workoutPlanSchema = new mongoose.Schema({
         sunday : { type : String, require : true },
     }],
 
-    workouts : [{ type : mongoose.Types.ObjectId, rel : "Workouts" }],
+    workouts : [{ type : mongoose.Types.ObjectId, ref : "Workouts" }],
 });
 
-export const workoutPlanModel = new mongoose.model("WorkoutPlan", workoutPlanSchema);
+export const workoutPlanModel = mongoose.model("WorkoutPlan", workoutPlanSchema);

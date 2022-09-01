@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const FoodSchema = new mongoose.Schema({
-    user : { type : mongoose.Types.ObjectId, rel : "Users" },
+    user : { type : mongoose.Types.ObjectId, ref : "Users" },
     name : { type : String, require : true },
-    descip : { type : String },
+    descrip : { type : String },
     cousine : { type : String },
 
     nutrition : [{
@@ -29,4 +29,4 @@ const FoodSchema = new mongoose.Schema({
 
 });
 
-export const FoodModel = new mongoose.model("Foods", FoodSchema);
+export const FoodModel = mongoose.model("Foods", FoodSchema);

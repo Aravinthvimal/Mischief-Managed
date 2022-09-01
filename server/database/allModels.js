@@ -7,6 +7,7 @@ import { UserModel } from "./users";
 import { WaterModel } from "./water";
 import { workoutPlanModel } from "./workoutPlan";
 import { WorkoutModel } from "./workouts";
+import { MealModel } from "./meal";
 
 export {
     BlogModel,
@@ -17,7 +18,8 @@ export {
     UserModel,
     WaterModel,
     WorkoutModel,
-    workoutPlanModel
+    workoutPlanModel,
+    MealModel
 };
 
 

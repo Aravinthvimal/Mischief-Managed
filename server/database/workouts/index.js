@@ -11,4 +11,4 @@ const WorkoutSchema = new mongoose.Schema({
     mistakes : [{ type : String }]
 });
 
-export const WworkoutModel = new mongoose.model("Workouts", WorkoutSchema);
+export const WworkoutModel = mongoose.model("Workouts", WorkoutSchema);
