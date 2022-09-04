@@ -7,7 +7,9 @@ const UserSchema = new mongoose.Schema({
     email : { type : String, require : true },
     password : { type : String},
     mobile : [{ type : Number, require : true }],
-    dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet" }
+    dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet" },
+    waterTarget : { type : Number, default : 10 },
+    cups : { type : Number, default : 0 }
 },
 {
     timestamps : true

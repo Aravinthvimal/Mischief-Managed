@@ -29,8 +29,8 @@ Router.post("/new", async(req, res) => {
 
 /*
 Route       /myplans
-Descrip     Get user Diet plans
-Params      none
+Descrip     Get Diet plans of a particular user
+Params      :_id
 Access      public
 Method      GET
 */

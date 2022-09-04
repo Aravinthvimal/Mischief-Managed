@@ -63,4 +63,64 @@ Router.patch("/addDietPlan/:_id", async(req, res) => {
     }
 });
 
+/*
+Route       /setWaterGoal
+Descrip     Set a new water goal for a user
+Params      :_id
+Access      public
+Method      PATCH
+*/
+
+Router.patch("/setWaterGoal/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { waterData } = req.body;
+        const updatedGoal = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : waterData,
+            },
+            {
+                new : true,
+            }
+        )
+
+        return res.status(200).json({ water : updatedGoal });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+
+});
+
+/*
+Route       /addWater
+Descrip     Add one cup of water for a user
+Params      :_id
+Access      public
+Method      PATCH
+*/
+
+Router.patch("/addWater/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } =  req.params;
+        const updatedWaterStatus = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $inc : { cups : 1 },
+            }
+        )
+
+        return res.status(200).json({ water : updatedWaterStatus })
+
+    } catch(error) {
+        res.status(500).json({ error : error.message });
+    }
+
+});
+
 export default Router;
