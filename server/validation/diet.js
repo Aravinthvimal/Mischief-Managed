@@ -7,15 +7,5 @@ export const ValidateDietPlanId = (dietPlanId) => {
         .required()
     });
 
-    return Schema.ValidateDietPlanId(dietPlanId);
-};
-
-export const ValidateDietPlanFoods = (dietPlanFoods) => {
-
-    const Schema = joi.object({
-        foods : joi.array().items(joi.string())
-        .required()
-    }); 
-
-    return Schema.ValidateDietPlanFoods(dietPlanFoods);
+    return Schema.validateAsync(dietPlanId);
 };

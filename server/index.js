@@ -16,6 +16,7 @@ import Auth from "./API/Auth";
 import DietPlan from "./API/Diet";
 import Foods from "./API/Foods";
 import Meal from "./API/Meal";
+import User from "./API/Users";
 
 // Database Connections
 import ConnectDB from "./database/connections";
@@ -49,6 +50,7 @@ mischief.use("/auth", Auth);
 mischief.use("/diet", DietPlan);
 mischief.use("/foods", Foods);
 mischief.use("/meal", Meal);
+mischief.use("/user", User);
 
 mischief.get("/", (req, res) => res.json({ message : "Setup Success! Yay!!" }));
 

@@ -6,14 +6,15 @@ const UserSchema = new mongoose.Schema({
     fullname : { type : String, require : true },
     email : { type : String, require : true },
     password : { type : String},
-    mobile : [{ type : Number, require : true }]
+    mobile : [{ type : Number, require : true }],
+    dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet" }
 },
 {
     timestamps : true
 });
 
 UserSchema.methods.generateJwtToken = function() {
-    return jwt.sign({user : this._id.toString()}, "MischiefManagedAccess", { expiresIn : '7d'});
+    return jwt.sign({user : this._id.toString()}, "MischiefManagedApp");
 };
 
 UserSchema.statics.findEmailAndPhone = async ({ email, mobile }) => {
