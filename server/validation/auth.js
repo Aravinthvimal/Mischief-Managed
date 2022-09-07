@@ -1,4 +1,4 @@
-import joi from "joi";
+import joi, { preferences } from "joi";
 
 export const ValidateSignup = (userData) => {
     

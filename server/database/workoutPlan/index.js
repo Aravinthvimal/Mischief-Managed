@@ -17,7 +17,7 @@ const workoutPlanSchema = new mongoose.Schema({
         sunday : { type : String, require : true },
     }],
 
-    workouts : [{ type : mongoose.Types.ObjectId, ref : "Workouts" }],
+    workouts : [{ type : mongoose.Types.ObjectId, ref : "Workout" }],
 });
 
 export const workoutPlanModel = mongoose.model("WorkoutPlan", workoutPlanSchema);

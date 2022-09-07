@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const PreferenceSchema = new mongoose.Schema({
+    user : { type : mongoose.Types.ObjectId, ref : "Users" },
     waterTarget : { type : Number, require : true },
     calorieTarget : { type : Number, require : true },
     calorieBurnTarget : { type : Number, require : true },

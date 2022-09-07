@@ -11,3 +11,16 @@ export const ValidateUserId = (UserId) => {
     return Schema.validateAsync(UserId);
 };
 
+export const ValidateSearchString = (searchString) => {
+
+    const Schema = joi.object({
+
+        searchString : joi.string()
+        .required()
+
+    });
+
+    return Schema.validateAsync(searchString);
+
+};
+
