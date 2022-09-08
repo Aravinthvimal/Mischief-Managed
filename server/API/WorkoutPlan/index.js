@@ -2,9 +2,9 @@ import express from "express";
 
 // Database 
 import { workoutPlanModel } from "../../database/allModels";
-import { ValidateSearchString } from "../../validation/foods";
 
 // Validation
+import { ValidateSearchString } from "../../validation/foods";
 import { ValidateWworkoutId } from "../../validation/workout";
 
 const Router = express.Router();

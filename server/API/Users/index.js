@@ -4,9 +4,33 @@ import express from "express";
 import { UserModel } from "../../database/users";
 
 // Validation
-import { ValidateUserId } from "../../validation/foods"
+import { ValidateSearchString, ValidateUserId } from "../../validation/foods"
 
 const Router = express.Router();
+
+/*
+Route       /search
+Descrip     Get user by name
+Params      none
+Access      public
+Method      GET
+*/
+
+Router.get("/search", async(req, res) => {
+    try {
+
+        await ValidateSearchString(req.body);
+
+        const { searchString } = req.body;
+        const user = await UserModel.find({ 
+            fullname : { $regex : searchString, $options : "i" },
+        });
+        return res.status(500).json({ user });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
 
 /*
 Route       /
