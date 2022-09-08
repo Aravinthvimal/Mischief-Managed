@@ -50,6 +50,26 @@ Router.get("/myplans/:_id", async(req, res) => {
 });
 
 /*
+Route       /level
+Descrip     Get workout plan by level
+Params      :level
+Access      public
+Method      GET
+*/
+
+Router.get("/level/:level", async(req, res) => {
+    try {
+
+        const { level } = req.params;
+        const workoutPlans = await workoutPlanModel.find({ level : level });
+        return res.status(200).json({ workoutPlans });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
 Route       /search
 Descrip     Get workout plan by name
 Params      none

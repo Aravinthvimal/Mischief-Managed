@@ -5,6 +5,7 @@ const workoutPlanSchema = new mongoose.Schema({
     name : { type : String, require : true },
     burn : { type : Number, require : true },
     descrip : { type : String, require : true },
+    level : { type : String, required : true },
     weightLoss : { type : Boolean, require : true },
 
     // weekPlans : Legs, Shoulder, Abs, Chest, Back, Arms, Cardio, Rest
