@@ -223,7 +223,9 @@ Router.get("/feed/:_id", async(req, res) => {
 
         const { _id } = req.params;
         const userData = await UserModel.findById(_id);
-        const foodType = userData.foodType;
+        const foodType = userData.preferences.foodType.toString();
+
+        console.log(foodType);
         
         switch(foodType) {
 
@@ -262,7 +264,7 @@ Router.get("/feed/:_id", async(req, res) => {
                 });
             
             break;
-
+    
         }
 
         return res.status(200).json({ foods });

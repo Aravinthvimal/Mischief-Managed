@@ -19,7 +19,7 @@ export const ValidateSignup = (userData) => {
         mobile : joi.number()
         .required(),
 
-        foodType : joi.string()
+        preferences : joi.object()
         .required()
 
     });

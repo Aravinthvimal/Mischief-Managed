@@ -6,14 +6,29 @@ const UserSchema = new mongoose.Schema({
     fullname : { type : String, require : true },
     email : { type : String, require : true },
     password : { type : String},
+    mobile : { type : Number, require : true },    
 
-    // FoodTypes : Veg, Non, Egg, Flex, Fish 
+    preferences : {
 
-    mobile : [{ type : Number, require : true }],
-    foodType : { type : String, required : true },
-    dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet" },
-    waterTarget : { type : Number, default : 10 },
-    cups : { type : Number, default : 0 }
+        // FoodTypes : Veg, Non, Egg, Flex, Fish 
+        foodType : { type : String, required : true },
+
+        dietPlan : { type : mongoose.Types.ObjectId, ref : "Diet" },
+        workoutPlan : { type : mongoose.Types.ObjectId, ref : "WorkoutPlan"},
+
+        waterTarget : { type : Number, default : 10 },
+        cups : { type : Number, default : 0 },
+        streaks : [{ type : Number }],
+
+        calorieTarget : { type : Number, required : true },
+        calorieBurnTarget : { type : Number, required : true },
+
+        gym : { type : Boolean, required : true },
+        
+        gender : { type : String },
+        age : { type : Number, required : true },
+        allergic : [{ type : String }]
+    }
 },
 {
     timestamps : true

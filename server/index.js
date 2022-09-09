@@ -17,7 +17,6 @@ import DietPlan from "./API/Diet";
 import Foods from "./API/Foods";
 import Meal from "./API/Meal";
 import User from "./API/Users";
-import Preference from "./API/Preferences";
 import Workout from "./API/Workout";
 import WorkoutPlan from "./API/WorkoutPlan";
 
@@ -54,7 +53,6 @@ mischief.use("/diet", DietPlan);
 mischief.use("/foods", Foods);
 mischief.use("/meal", Meal);
 mischief.use("/user", User);
-mischief.use("/preference", Preference);
 mischief.use("/workout", Workout);
 mischief.use("/workoutPlan", WorkoutPlan);
 

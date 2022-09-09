@@ -63,20 +63,19 @@ Access      public
 Method      PATCH
 */
 
-Router.patch("/addDietPlan/:_id", async(req, res) => {
+Router.put("/addDietPlan/:_id", async(req, res) => {
     try {
 
         await ValidateUserId(req.params);
 
         const { addPlanData } = req.body;
         const { _id } = req.params;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
 
         const updatedDietPlan = await UserModel.findByIdAndUpdate(_id, 
             {
-                $set : addPlanData,
-            },
-            {
-                new : true
+                $set : { preferences : { ...preferences, dietPlan : addPlanData } },
             }
         )
 
