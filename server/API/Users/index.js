@@ -25,7 +25,7 @@ Router.get("/search", async(req, res) => {
         const user = await UserModel.find({ 
             fullname : { $regex : searchString, $options : "i" },
         });
-        return res.status(500).json({ user });
+        return res.status(200).json({ user });
 
     } catch (error) {
         res.status(500).json({ error : error.message });
@@ -56,11 +56,42 @@ Router.get("/:_id", async(req, res) => {
 });
 
 /*
+Route       /addFoodType
+Descrip     Add food type for user 
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addFoodType/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { foodType } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedFoodType = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, foodType : foodType } },
+            }
+        )
+
+        return res.status(200).json({ updatedFoodType });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
 Route       /addDietPlan
 Descrip     Add diet plan for user 
-Params      none
+Params      :_id
 Access      public
-Method      PATCH
+Method      PUT
 */
 
 Router.put("/addDietPlan/:_id", async(req, res) => {
@@ -79,7 +110,7 @@ Router.put("/addDietPlan/:_id", async(req, res) => {
             }
         )
 
-        return res.json({ user : updatedDietPlan });
+        return res.status(200).json({ user : updatedDietPlan });
 
     } catch (error) {
         res.status(500).json({ error : error.message })
@@ -91,22 +122,22 @@ Route       /setWaterGoal
 Descrip     Set a new water goal for a user
 Params      :_id
 Access      public
-Method      PATCH
+Method      PUT
 */
 
-Router.patch("/setWaterGoal/:_id", async(req, res) => {
+Router.put("/setWaterGoal/:_id", async(req, res) => {
     try {
 
         await ValidateUserId(req.params);
 
+        const { setWaterGoal } = req.body;
         const { _id } = req.params;
-        const { waterData } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
         const updatedGoal = await UserModel.findByIdAndUpdate(_id, 
             {
-                $set : waterData,
-            },
-            {
-                new : true,
+                $set : { preferences : { ...preferences, waterTarget : setWaterGoal } },
             }
         )
 
@@ -123,27 +154,210 @@ Route       /addWater
 Descrip     Add one cup of water for a user
 Params      :_id
 Access      public
-Method      PATCH
+Method      PUT
 */
 
-Router.patch("/addWater/:_id", async(req, res) => {
+Router.put("/addWater/:_id", async(req, res) => {
     try {
 
         await ValidateUserId(req.params);
 
         const { _id } =  req.params;
-        const updatedWaterStatus = await UserModel.findByIdAndUpdate(_id, 
-            {
-                $inc : { cups : 1 },
-            }
-        )
+        const user = await UserModel.findById(_id);
+        await user.updateOne({ $inc : { "preferences.cups" : 1 }});
 
-        return res.status(200).json({ water : updatedWaterStatus })
+        return res.status(200).json({ user });
 
     } catch(error) {
         res.status(500).json({ error : error.message });
     }
 
+});
+
+/*
+Route       /addCalorieTarget
+Descrip     Add calorie target for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addCalorieTarget/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { calorieTarget } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedCalorieTarget = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, calorieTarget : calorieTarget } },
+            }
+        )
+
+        return res.status(200).json({ updatedCalorieTarget });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
+Route       /addBurnTarget
+Descrip     Add calorie burn target for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addBurnTarget/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { burnTarget } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedBurnTarget = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, calorieBurnTarget : burnTarget } },
+            }
+        )
+
+        return res.status(200).json({ updatedBurnTarget });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
+Route       /addGymStatus
+Descrip     Add gym status for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addGymStatus/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { gymStatus } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedGymStatus = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, gym : gymStatus } },
+            }
+        )
+
+        return res.status(200).json({ updatedGymStatus });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
+Route       /addGender
+Descrip     Add gender for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addGender/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { gender } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedGender = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, gender : gender } },
+            }
+        )
+
+        return res.status(200).json({ updatedGender });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
+Route       /addAge
+Descrip     Add age for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addAge/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { age } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedAge = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, age : age } },
+            }
+        )
+
+        res.status(200).json({ updatedAge });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
+
+/*
+Route       /addAllergicFoods
+Descrip     Add allergic foods for a user
+Params      :_id
+Access      public
+Method      PUT
+*/
+
+Router.put("/addAllergicFoods/:_id", async(req, res) => {
+    try {
+
+        await ValidateUserId(req.params);
+
+        const { _id } = req.params;
+        const { allergicFoods } = req.body;
+        const user = await UserModel.findById(_id);
+        const preferences = user.preferences;
+
+        const updatedAllergicFoods = await UserModel.findByIdAndUpdate(_id, 
+            {
+                $set : { preferences : { ...preferences, allergic : allergicFoods } },
+            }
+        )
+
+        res.status(200).json({ updatedAllergicFoods });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
 });
 
 export default Router;
