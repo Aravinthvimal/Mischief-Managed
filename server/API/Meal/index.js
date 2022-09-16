@@ -1,7 +1,8 @@
 import express from "express";
+import mongoose, { now } from "mongoose";
 
 // Database
-import { MealModel } from "../../database/meal";
+import { FoodModel, MealModel, UserModel } from "../../database/allModels";
 
 // Validation
 
@@ -15,10 +16,52 @@ Access           Public
 Method           POST
 */
 
-Router.post("/breakfast/add", async(req, res) => {
+Router.post("/breakfast/add/:_id", async(req, res) => {
     try {
+        
+        const { _id } = req.params;
+
+        // get current date
+        const date = new Date();
+        var nowDate = date.getDate();
+        
+        // find calories of the added food
+        const foodData = await FoodModel.findById(req.body.breakfast.food);
+        const foodCalories = foodData.calories;
+
+        // get the date of the last meal
+        const userData = await UserModel.findById(_id);
+        const userMealDate = userData.preferences.lastMeal;
+
+        if(nowDate - userMealDate > 0) {
+
+            console.log("different day");
+
+            await UserModel.findByIdAndUpdate(_id,
+                {
+                    $set : { "preferences.calorieToday" : 0 },
+                }
+            );
+        };
+
+        console.log("same day");
+        
+        const user = await UserModel.findByIdAndUpdate(_id,
+            
+            {
+                $inc : { "preferences.calorieToday" : foodCalories },
+            }
+        );
+
         const breakfast = await MealModel.create(req.body.breakfast);
-        return res.status(200).json({ meal : breakfast });
+
+        await UserModel.findByIdAndUpdate(_id, 
+            {
+               $set : { "preferences.lastMeal" : nowDate }, 
+            }   
+        );
+
+        return res.status(200).json({ meal : breakfast, user : user });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

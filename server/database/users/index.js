@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema({
         calorieTarget : { type : Number, required : true },                         // ADDED
         calorieBurnTarget : { type : Number, required : true },                     // ADDED
 
+        lastMeal : { type : Number, default : 0 },
+        calorieToday : { type : Number, default : 0 },
+        calorieBurntToday : { type : Number, default : 0 },
+
         gym : { type : Boolean, required : true },                                  // ADDED
         
         gender : { type : String },                                                 // ADDED
