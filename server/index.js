@@ -19,6 +19,8 @@ import Meal from "./API/Meal";
 import User from "./API/Users";
 import Workout from "./API/Workout";
 import WorkoutPlan from "./API/WorkoutPlan";
+import Blogs from "./API/Blogs";
+import Reviews from "./API/Reviews";
 
 // Database Connections
 import ConnectDB from "./database/connections";
@@ -55,6 +57,8 @@ mischief.use("/meal", Meal);
 mischief.use("/user", User);
 mischief.use("/workout", Workout);
 mischief.use("/workoutPlan", WorkoutPlan);
+mischief.use("/blogs", Blogs);
+mischief.use("/reviews", Reviews);
 
 mischief.get("/", (req, res) => res.json({ message : "Setup Success! Yay!!" }));
 
