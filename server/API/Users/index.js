@@ -33,6 +33,26 @@ Router.get("/search", async(req, res) => {
 });
 
 /*
+Route         /getUserByMailId/:_email
+Descrip       get userid with email
+Params        email
+Access        Public
+Method        GET
+*/
+
+Router.get("/getUserByMailId/:_email", async(req, res) => {
+    try {
+      const { _email } = req.params;
+      const userData = await UserModel.findOne({ email : _email });
+      const userId = userData._id;
+      return res.status(200).json({ userId : userId });
+    } catch (error) {
+      return res.status(500).json({ error : error.message });
+    }
+  })
+  
+
+/*
 Route       /
 Descrip     Get user data
 Params      :_id

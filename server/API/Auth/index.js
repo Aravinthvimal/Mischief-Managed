@@ -57,8 +57,8 @@ Method        POST
 Router.post("/signin", async(req,res) => {
     try {
       
-      await ValidateSignin(req.body.credentials);
-      const new_user = await UserModel.findByEmailAndPassword(req.body.credentials);
+      await ValidateSignin(req.body.UserData);
+      const new_user = await UserModel.findByEmailAndPassword(req.body.UserData);
       const user = { email : new_user }
   
       //JWT Auth Token

@@ -1,7 +1,9 @@
 import googleOAuth from "passport-google-oauth20";
 
 import {UserModel} from "../database/allModels.js";
+import passport from "passport";
 const GoogleStrategy = googleOAuth.Strategy;
+
 
 export default (passport) => {
   passport.use(
@@ -39,7 +41,7 @@ export default (passport) => {
     } catch(error) {
     done(error, null);
     }
-  })
+})
 );
 
 passport.serializeUser((userData,done) => done(null, {...userData}));
