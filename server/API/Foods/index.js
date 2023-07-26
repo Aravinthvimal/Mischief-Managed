@@ -10,7 +10,7 @@ import { ValidateSearchString, ValidateUserId } from "../../validation/foods";
 const Router = express.Router();
 
 /*
-Route            /new
+Route            /new 
 Des              Add new food
 Access           Public
 Method           POST
@@ -224,8 +224,6 @@ Router.get("/feed/:_id", async(req, res) => {
         const { _id } = req.params;
         const userData = await UserModel.findById(_id);
         const foodType = userData.preferences.foodType.toString();
-
-        console.log(foodType);
         
         switch(foodType) {
 
@@ -275,4 +273,47 @@ Router.get("/feed/:_id", async(req, res) => {
 
 });
 
+/*
+Route            /feed
+Des              Get foods according to food name
+Params           :_id
+Access           Public
+Method           GET
+*/
+
+Router.get("/:_id", async(req, res) => {
+
+    try {
+        
+        const {_id } = req.params;
+        const foodData = await FoodModel.findOne({ name : _id });
+
+        res.status(200).json({ selectedFood : foodData });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+
+});
+
+/*
+Route       /
+Descrip     Get user data
+Params      :_id
+Access      public
+Method      GET
+*/
+
+Router.get("/foodId/:_id", async(req, res) => {
+    try {
+
+        const {_id } = req.params;
+        const foodData = await FoodModel.findById(_id);
+
+        res.status(200).json({ food : foodData });
+
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
+});
 export default Router;
